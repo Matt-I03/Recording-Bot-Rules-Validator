@@ -144,7 +144,7 @@ namespace DeserializeV2
         public void ShowFailedConditions(string choice)
         {
             StringBuilder failedConditions = new StringBuilder();
-            
+
             failedConditions.AppendLine("Failed Conditions: \n");
 
             if (choice == "RecordingFilter")
@@ -167,3 +167,4 @@ namespace DeserializeV2
         }
     }
 }
+

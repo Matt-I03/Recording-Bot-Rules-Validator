@@ -20,9 +20,9 @@ namespace DeserializeV2
 
         public override string ToString()
         {
-            string final = $"Operator: {Operator} \n Left Side Param: {LeftSideParameter} \n " +
-                $"Left side value: {(String.IsNullOrEmpty(LeftSideValue) ? "N/A" : LeftSideValue)} \n " +
-                $"Operator: {LogicalOperator} \n Right side value: {RightSideParameter}\n";
+            string final = $"Operator: {Operator} | Left Param: {LeftSideParameter} | " +
+                           $"Left Value: {(String.IsNullOrEmpty(LeftSideValue) ? "N/A" : LeftSideValue)} | " +
+                           $"Logical Operator: {LogicalOperator} | Right Param: {RightSideParameter}\n";
 
             return final;
         }
@@ -54,7 +54,7 @@ namespace DeserializeV2
 
             foreach (Condition condition in conditions)
             {
-                if (condition.Operator.ToLower() != boolOperator) 
+                if (condition.Operator.ToLower() != boolOperator || string.IsNullOrEmpty(condition.LeftSideValue))
                     continue;
 
                 if (condition.LogicalOperator == comparisonOperator)
@@ -77,7 +77,7 @@ namespace DeserializeV2
 
             foreach (var condition in conditions)
             {
-                if (condition.Operator.ToLower() != boolOperator)
+                if (condition.Operator.ToLower() != boolOperator || string.IsNullOrEmpty(condition.LeftSideValue))
                     continue;
 
                 if (condition.LogicalOperator == "Contains")
@@ -103,7 +103,7 @@ namespace DeserializeV2
 
             foreach (var condition in conditions)
             {
-                if (condition.Operator.ToLower() != boolOperator)
+                if (condition.Operator.ToLower() != boolOperator || string.IsNullOrEmpty(condition.LeftSideValue))
                     continue;
 
                 if (condition.LogicalOperator == "Excludes")
