@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
+using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
 using System.Text;
@@ -14,13 +15,15 @@ namespace DeserializeV2
     internal class Data
     {
         public Dictionary<string, string> ConfigSettings { get; set; } = new Dictionary<string, string>();
+        public Dictionary<string, string> CallDetails { get; set; } = new Dictionary<string, string>();
         public List<Dictionary<string, string>> Participants { get; set; } = new List<Dictionary<string, string>>();
         public List<Condition> RecordingConditions { get; set; } = new List<Condition>();
         public List<Condition> OnlineMeetingConditions { get; set; } = new List<Condition>();
 
         // Functions to Deserialize different files
-        public void DeserializeJsonConfig(string fileContents) //Deserializes Json file containing bot config
+        public void DeserializeJsonConfig(string filePath) //Deserializes Json file containing bot config
         {
+            string fileContents = File.ReadAllText(filePath);
             var jsonDoc = JsonDocument.Parse(fileContents);
 
             foreach (var element in jsonDoc.RootElement.EnumerateObject())
@@ -77,7 +80,7 @@ namespace DeserializeV2
             {
                 if (!element.HasElements && element.Parent.Name.LocalName != "RosterChangeItem")
                 {
-                    this.ConfigSettings[element.Name.LocalName] = element.Value;
+                    this.CallDetails[element.Name.LocalName] = element.Value;
                 }
                 else if (element.Name.LocalName == "RosterChangeItem")
                 {
@@ -104,50 +107,49 @@ namespace DeserializeV2
             }
         }
 
-        public void Clear()
-        {
-            this.ConfigSettings.Clear();
-            this.Participants.Clear();
-            this.RecordingConditions.Clear();
-            this.OnlineMeetingConditions.Clear();
-        }
-
-        public void DisplayData()
+        public void DisplayConfigSettings()
         {
             StringBuilder message = new StringBuilder();
 
-            message.AppendLine("Configuration Settings:");
+            message.AppendLine("Configuration Settings: \n");
             foreach (var setting in ConfigSettings)
             {
                 message.AppendLine($"{setting.Key}: {setting.Value}");
             }
 
-            MessageBox.Show(message.ToString());
-
-            message.Clear();
-
-            message.AppendLine("\nRecording Conditions:");
+            message.AppendLine("\nRecording Conditions: \n");
             foreach (var condition in RecordingConditions)
             {
                 message.AppendLine(condition.ToString());
             }
 
-            message.AppendLine("\nOnline Meeting Conditions:");
+            message.AppendLine("\nOnline Meeting Conditions: \n");
             foreach (var condition in OnlineMeetingConditions)
             {
                 message.AppendLine(condition.ToString());
             }
 
-            MessageBox.Show(message.ToString());
+            ShowScrollableMessageBox(message.ToString(), "Config Settings");
         }
 
-        public void ShowFailedConditions(string choice)
+        public void DisplayCallDetails()
+        {
+            StringBuilder message = new StringBuilder();
+
+            message.AppendLine("Call Details: \n");
+            foreach (var element in CallDetails)
+            {
+                message.AppendLine($"{element.Key}: {element.Value}");
+            }
+
+            ShowScrollableMessageBox(message.ToString(), "Call Details");
+        }
+
+        public StringBuilder FailedConditionsToString(string choice)
         {
             StringBuilder failedConditions = new StringBuilder();
 
-            failedConditions.AppendLine("Failed Conditions: \n");
-
-            if (choice == "RecordingFilter")
+            if (choice == "RecordingFilters")
             {
                 foreach (var m in this.RecordingConditions.Where(m => m.Flag == true))
                 {
@@ -155,7 +157,7 @@ namespace DeserializeV2
                 }
             }
 
-            if (choice == "OnlineMeetingFilter")
+            if (choice == "OnlineMeetingFilters")
             {
                 foreach (var m in this.OnlineMeetingConditions.Where(m => m.Flag == true))
                 {
@@ -163,7 +165,25 @@ namespace DeserializeV2
                 }
             }
 
-            MessageBox.Show(failedConditions.ToString());
+            return failedConditions;
+        }
+
+        private void ShowScrollableMessageBox(string message, string name)
+        {
+            Form form = new Form();
+            form.Text = name;
+            form.Size = new System.Drawing.Size(400, 300);
+            form.StartPosition = FormStartPosition.CenterParent;
+
+            RichTextBox richTextBox = new RichTextBox();
+            richTextBox.Dock = DockStyle.Fill;
+            richTextBox.ReadOnly = true;
+            richTextBox.ScrollBars = RichTextBoxScrollBars.Vertical;
+            richTextBox.Text = message;
+
+            form.Controls.Add(richTextBox);
+
+            form.ShowDialog();
         }
     }
 }

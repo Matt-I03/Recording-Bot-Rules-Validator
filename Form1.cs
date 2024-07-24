@@ -11,6 +11,7 @@ using System.Windows.Forms;
 using System.Text.Json;
 using System.Xml.Linq;
 using System.Xml.Serialization;
+using System.Windows.Forms.VisualStyles;
 
 namespace DeserializeV2
 {
@@ -23,97 +24,128 @@ namespace DeserializeV2
             InitializeComponent();
         }
 
-        private void JsonSubmit_Click(object sender, EventArgs e)
+        private void BotConfigFileSearch_Click(object sender, EventArgs e)
         {
-            try
+            data.ConfigSettings.Clear();
+            data.RecordingConditions.Clear();
+            data.OnlineMeetingConditions.Clear();
+
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                if (!string.IsNullOrEmpty(JsonTextBox.Text))
+                openFileDialog.Filter = "All files (*.*)|*.*|JSON files (*.json)|*.json|XML files (*.xml)|*.xml";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
+
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
                 {
-                    string contents = JsonTextBox.Text;
+                    string filePath = openFileDialog.FileName;
+                    string fileName = Path.GetFileName(filePath);
+                    string fileExtension = System.IO.Path.GetExtension(filePath).ToLower();
 
-                    data.DeserializeJsonConfig(contents);
-
-                    data.UpdateConditions();
+                    if (fileExtension == ".json")
+                    {
+                        data.DeserializeJsonConfig(filePath);
+                        BotConfigFileBox.Text = fileName;
+                    }
+                    else if (fileExtension == ".config" || fileExtension == ".xml")
+                    {
+                        data.DeserializeXmlConfig(filePath);
+                        BotConfigFileBox.Text = fileName;
+                    }
+                    else
+                        MessageBox.Show("Unsupported file type.");
                 }
             }
-            catch (Exception f) { }
+
+            data.UpdateConditions();
         }
 
-        private void XmlFileDrop_DragEnter(object sender, DragEventArgs e)
+        private void CallXMLFileSearch_Click(object sender, EventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-                e.Effect = DragDropEffects.Copy;
-            else
-                e.Effect = DragDropEffects.None;
-        }
+            data.CallDetails.Clear();
+            data.Participants.Clear();
 
-        private void XmlFileDrop_DragDrop(object sender, DragEventArgs e)
-        {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
+            using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                string[] filePath = (string[])e.Data.GetData(DataFormats.FileDrop);
+                openFileDialog.Filter = "All files (*.*)|*.*|XML files (*.xml)|*.xml";
+                openFileDialog.FilterIndex = 1;
+                openFileDialog.RestoreDirectory = true;
 
-                string filename = Path.GetFileName(filePath[0]);
-                XmlFileDrop.Text = filename;
+                if (openFileDialog.ShowDialog() == DialogResult.OK)
+                {
+                    string filePath = openFileDialog.FileName;
+                    string fileName = Path.GetFileName(filePath);
+                    string fileExtension = System.IO.Path.GetExtension(filePath).ToLower();
 
-                data.DeserializeXmlConfig(filePath[0]);
+                    if (fileExtension == ".xml")
+                    {
+                        data.DeserializeXmlMeetingDetails(filePath);
+                        CallDataFileBox.Text = fileName;
+                    }
+                    else
+                        MessageBox.Show("Unsupported file type.");
+                }
             }
 
             data.UpdateConditions();
         }
 
-        private void XmlFileDrop2_DragDrop(object sender, DragEventArgs e)
+        private void DisplayBotConfig_Click(object sender, EventArgs e)
         {
-            if (e.Data.GetDataPresent(DataFormats.FileDrop))
-            {
-                string[] filePath = (string[])e.Data.GetData(DataFormats.FileDrop);
+            data.DisplayConfigSettings();
+        }
 
-                string filename = Path.GetFileName(filePath[0]);
-                XmlFileDrop2.Text = filename;
+        private void DisplayCallXML_Click(object sender, EventArgs e)
+        {
+            data.DisplayCallDetails();
+        }
 
-                data.DeserializeXmlMeetingDetails(filePath[0]);
-            }
+        private void ValidateBttn_Click(object sender, EventArgs e)
+        {
+            ResultsDisplay.Clear();
 
+            StringBuilder displayText = new StringBuilder();
             data.UpdateConditions();
-        }
 
-        private void OnlineMeetingButton_Click(object sender, EventArgs e)
-        {
-            if (Condition.ShouldRecordOnlineMeeting(data))
+            bool recordRes = Condition.ShouldRecord(data);
+            bool meetingRes = Condition.ShouldRecordOnlineMeeting(data);
+
+            if (recordRes && meetingRes)
             {
-                MessageBox.Show("Recording");
-            } 
+                ResultsDisplay.AppendText("Recording Filters: Passed" + Environment.NewLine);
+                ResultsDisplay.AppendText(Environment.NewLine + "Online Meeting Filters: Passed");
+
+                ResultImage.Image = Properties.Resources.Check_Mark;
+            }
+            else if (recordRes)
+            {
+                ResultsDisplay.AppendText("Recording Filters: Passed" + Environment.NewLine);
+
+                ResultsDisplay.AppendText(Environment.NewLine + "Failed Meeting Filters: " + Environment.NewLine);
+                ResultsDisplay.AppendText(data.FailedConditionsToString("OnlineMeetingFilters").ToString());
+
+                ResultImage.Image = Properties.Resources.X_Mark;
+            }
+            else if (meetingRes)
+            {
+                ResultsDisplay.AppendText("Failed Recording Filters: " + Environment.NewLine);
+                ResultsDisplay.AppendText(data.FailedConditionsToString("RecordingFilters").ToString());
+
+                ResultsDisplay.AppendText(Environment.NewLine + "Online Meeting Filters: Passed");
+
+                ResultImage.Image = Properties.Resources.X_Mark;
+
+            }
             else
             {
-                MessageBox.Show("Could not record");
-                data.ShowFailedConditions("OnlineMeetingFilter");
-            }
-        }
+                ResultsDisplay.AppendText("Failed Recording Filters: " + Environment.NewLine);
+                ResultsDisplay.AppendText(data.FailedConditionsToString("RecordingFilters").ToString());
 
-        private void RecordingFilterButton_Click(object sender, EventArgs e)
-        {
-            if (Condition.ShouldRecord(data))
-            {
-                MessageBox.Show("Recording");
-            }
-            else
-            {
-                MessageBox.Show("Could not record");
-                data.ShowFailedConditions("RecordingFilter");
-            }
-        }
+                ResultsDisplay.AppendText(Environment.NewLine + "Failed Meeting Filters: " + Environment.NewLine);
+                ResultsDisplay.AppendText(data.FailedConditionsToString("OnlineMeetingFilters").ToString());
 
-        private void ClearBttn_Click(object sender, EventArgs e)
-        {
-            data.Clear();
-            XmlFileDrop.Text = "";
-            XmlFileDrop2.Text = "";
-            JsonTextBox.Text = "";
-        }
-
-        private void DisplayDataBttn_Click(object sender, EventArgs e)
-        {
-            data.DisplayData();
+                ResultImage.Image = Properties.Resources.X_Mark;
+            }
         }
     }
 }

@@ -28,148 +28,143 @@
         /// </summary>
         private void InitializeComponent()
         {
-            this.JsonLabel = new System.Windows.Forms.Label();
-            this.XmlLabel = new System.Windows.Forms.Label();
-            this.XmlFileDrop = new System.Windows.Forms.TextBox();
-            this.JsonTextBox = new System.Windows.Forms.TextBox();
-            this.JsonSubmit = new System.Windows.Forms.Button();
-            this.OnlineMeetingButton = new System.Windows.Forms.Button();
-            this.RecordingFilterButton = new System.Windows.Forms.Button();
+            this.BotConfigFileBox = new System.Windows.Forms.TextBox();
+            this.CallDataFileBox = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
-            this.XmlFileDrop2 = new System.Windows.Forms.TextBox();
-            this.ClearBttn = new System.Windows.Forms.Button();
-            this.DisplayDataBttn = new System.Windows.Forms.Button();
+            this.label2 = new System.Windows.Forms.Label();
+            this.BotConfigFileSearch = new System.Windows.Forms.Button();
+            this.CallXMLFileSearch = new System.Windows.Forms.Button();
+            this.ValidateBttn = new System.Windows.Forms.Button();
+            this.ResultImage = new System.Windows.Forms.PictureBox();
+            this.DisplayBotConfig = new System.Windows.Forms.Button();
+            this.DisplayCallXML = new System.Windows.Forms.Button();
+            this.ResultsDisplay = new System.Windows.Forms.RichTextBox();
+            ((System.ComponentModel.ISupportInitialize)(this.ResultImage)).BeginInit();
             this.SuspendLayout();
             // 
-            // JsonLabel
+            // BotConfigFileBox
             // 
-            this.JsonLabel.AutoSize = true;
-            this.JsonLabel.Location = new System.Drawing.Point(65, 41);
-            this.JsonLabel.Name = "JsonLabel";
-            this.JsonLabel.Size = new System.Drawing.Size(134, 13);
-            this.JsonLabel.TabIndex = 0;
-            this.JsonLabel.Text = "BotConfiguration Json Text";
+            this.BotConfigFileBox.Location = new System.Drawing.Point(46, 68);
+            this.BotConfigFileBox.Multiline = true;
+            this.BotConfigFileBox.Name = "BotConfigFileBox";
+            this.BotConfigFileBox.Size = new System.Drawing.Size(465, 33);
+            this.BotConfigFileBox.TabIndex = 0;
             // 
-            // XmlLabel
+            // CallDataFileBox
             // 
-            this.XmlLabel.AutoSize = true;
-            this.XmlLabel.Location = new System.Drawing.Point(253, 41);
-            this.XmlLabel.Name = "XmlLabel";
-            this.XmlLabel.Size = new System.Drawing.Size(134, 13);
-            this.XmlLabel.TabIndex = 1;
-            this.XmlLabel.Text = "BotConfiguration XML drop";
-            // 
-            // XmlFileDrop
-            // 
-            this.XmlFileDrop.AllowDrop = true;
-            this.XmlFileDrop.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.XmlFileDrop.Location = new System.Drawing.Point(256, 71);
-            this.XmlFileDrop.Multiline = true;
-            this.XmlFileDrop.Name = "XmlFileDrop";
-            this.XmlFileDrop.ReadOnly = true;
-            this.XmlFileDrop.Size = new System.Drawing.Size(162, 146);
-            this.XmlFileDrop.TabIndex = 2;
-            this.XmlFileDrop.DragDrop += new System.Windows.Forms.DragEventHandler(this.XmlFileDrop_DragDrop);
-            this.XmlFileDrop.DragEnter += new System.Windows.Forms.DragEventHandler(this.XmlFileDrop_DragEnter);
-            // 
-            // JsonTextBox
-            // 
-            this.JsonTextBox.Location = new System.Drawing.Point(68, 57);
-            this.JsonTextBox.Multiline = true;
-            this.JsonTextBox.Name = "JsonTextBox";
-            this.JsonTextBox.Size = new System.Drawing.Size(168, 171);
-            this.JsonTextBox.TabIndex = 3;
-            // 
-            // JsonSubmit
-            // 
-            this.JsonSubmit.Location = new System.Drawing.Point(68, 234);
-            this.JsonSubmit.Name = "JsonSubmit";
-            this.JsonSubmit.Size = new System.Drawing.Size(75, 23);
-            this.JsonSubmit.TabIndex = 4;
-            this.JsonSubmit.Text = "Submit";
-            this.JsonSubmit.UseVisualStyleBackColor = true;
-            this.JsonSubmit.Click += new System.EventHandler(this.JsonSubmit_Click);
-            // 
-            // OnlineMeetingButton
-            // 
-            this.OnlineMeetingButton.Location = new System.Drawing.Point(233, 354);
-            this.OnlineMeetingButton.Name = "OnlineMeetingButton";
-            this.OnlineMeetingButton.Size = new System.Drawing.Size(131, 23);
-            this.OnlineMeetingButton.TabIndex = 5;
-            this.OnlineMeetingButton.Text = "Online Meeting Check";
-            this.OnlineMeetingButton.UseVisualStyleBackColor = true;
-            this.OnlineMeetingButton.Click += new System.EventHandler(this.OnlineMeetingButton_Click);
-            // 
-            // RecordingFilterButton
-            // 
-            this.RecordingFilterButton.Location = new System.Drawing.Point(395, 354);
-            this.RecordingFilterButton.Name = "RecordingFilterButton";
-            this.RecordingFilterButton.Size = new System.Drawing.Size(141, 23);
-            this.RecordingFilterButton.TabIndex = 6;
-            this.RecordingFilterButton.Text = "Recording Filter Check";
-            this.RecordingFilterButton.UseVisualStyleBackColor = true;
-            this.RecordingFilterButton.Click += new System.EventHandler(this.RecordingFilterButton_Click);
+            this.CallDataFileBox.Location = new System.Drawing.Point(46, 163);
+            this.CallDataFileBox.Multiline = true;
+            this.CallDataFileBox.Name = "CallDataFileBox";
+            this.CallDataFileBox.Size = new System.Drawing.Size(465, 33);
+            this.CallDataFileBox.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(465, 41);
+            this.label1.Location = new System.Drawing.Point(46, 49);
             this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(108, 13);
-            this.label1.TabIndex = 7;
-            this.label1.Text = "Xml meeting data box";
+            this.label1.Size = new System.Drawing.Size(133, 13);
+            this.label1.TabIndex = 2;
+            this.label1.Text = "Bot Config File (Json/XML)";
             // 
-            // XmlFileDrop2
+            // label2
             // 
-            this.XmlFileDrop2.AllowDrop = true;
-            this.XmlFileDrop2.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            this.XmlFileDrop2.Location = new System.Drawing.Point(468, 71);
-            this.XmlFileDrop2.Multiline = true;
-            this.XmlFileDrop2.Name = "XmlFileDrop2";
-            this.XmlFileDrop2.ReadOnly = true;
-            this.XmlFileDrop2.Size = new System.Drawing.Size(158, 146);
-            this.XmlFileDrop2.TabIndex = 8;
-            this.XmlFileDrop2.DragDrop += new System.Windows.Forms.DragEventHandler(this.XmlFileDrop2_DragDrop);
-            this.XmlFileDrop2.DragEnter += new System.Windows.Forms.DragEventHandler(this.XmlFileDrop_DragEnter);
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(46, 147);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(68, 13);
+            this.label2.TabIndex = 3;
+            this.label2.Text = "Call XML File";
             // 
-            // ClearBttn
+            // BotConfigFileSearch
             // 
-            this.ClearBttn.Location = new System.Drawing.Point(312, 262);
-            this.ClearBttn.Name = "ClearBttn";
-            this.ClearBttn.Size = new System.Drawing.Size(141, 23);
-            this.ClearBttn.TabIndex = 9;
-            this.ClearBttn.Text = "Clear";
-            this.ClearBttn.UseVisualStyleBackColor = true;
-            this.ClearBttn.Click += new System.EventHandler(this.ClearBttn_Click);
+            this.BotConfigFileSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.BotConfigFileSearch.Location = new System.Drawing.Point(547, 68);
+            this.BotConfigFileSearch.Name = "BotConfigFileSearch";
+            this.BotConfigFileSearch.Size = new System.Drawing.Size(83, 32);
+            this.BotConfigFileSearch.TabIndex = 4;
+            this.BotConfigFileSearch.Text = ". . .";
+            this.BotConfigFileSearch.UseVisualStyleBackColor = true;
+            this.BotConfigFileSearch.Click += new System.EventHandler(this.BotConfigFileSearch_Click);
             // 
-            // DisplayDataBttn
+            // CallXMLFileSearch
             // 
-            this.DisplayDataBttn.Location = new System.Drawing.Point(343, 314);
-            this.DisplayDataBttn.Name = "DisplayDataBttn";
-            this.DisplayDataBttn.Size = new System.Drawing.Size(75, 23);
-            this.DisplayDataBttn.TabIndex = 10;
-            this.DisplayDataBttn.Text = "Display Data";
-            this.DisplayDataBttn.UseVisualStyleBackColor = true;
-            this.DisplayDataBttn.Click += new System.EventHandler(this.DisplayDataBttn_Click);
+            this.CallXMLFileSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
+            this.CallXMLFileSearch.Location = new System.Drawing.Point(547, 163);
+            this.CallXMLFileSearch.Name = "CallXMLFileSearch";
+            this.CallXMLFileSearch.Size = new System.Drawing.Size(83, 33);
+            this.CallXMLFileSearch.TabIndex = 5;
+            this.CallXMLFileSearch.Text = ". . .";
+            this.CallXMLFileSearch.UseVisualStyleBackColor = true;
+            this.CallXMLFileSearch.Click += new System.EventHandler(this.CallXMLFileSearch_Click);
+            // 
+            // ValidateBttn
+            // 
+            this.ValidateBttn.Location = new System.Drawing.Point(433, 297);
+            this.ValidateBttn.Name = "ValidateBttn";
+            this.ValidateBttn.Size = new System.Drawing.Size(308, 76);
+            this.ValidateBttn.TabIndex = 6;
+            this.ValidateBttn.Text = "Validate";
+            this.ValidateBttn.UseVisualStyleBackColor = true;
+            this.ValidateBttn.Click += new System.EventHandler(this.ValidateBttn_Click);
+            // 
+            // ResultImage
+            // 
+            this.ResultImage.Location = new System.Drawing.Point(900, 68);
+            this.ResultImage.Name = "ResultImage";
+            this.ResultImage.Size = new System.Drawing.Size(217, 197);
+            this.ResultImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
+            this.ResultImage.TabIndex = 7;
+            this.ResultImage.TabStop = false;
+            // 
+            // DisplayBotConfig
+            // 
+            this.DisplayBotConfig.Location = new System.Drawing.Point(660, 68);
+            this.DisplayBotConfig.Name = "DisplayBotConfig";
+            this.DisplayBotConfig.Size = new System.Drawing.Size(81, 32);
+            this.DisplayBotConfig.TabIndex = 9;
+            this.DisplayBotConfig.Text = "Display";
+            this.DisplayBotConfig.UseVisualStyleBackColor = true;
+            this.DisplayBotConfig.Click += new System.EventHandler(this.DisplayBotConfig_Click);
+            // 
+            // DisplayCallXML
+            // 
+            this.DisplayCallXML.Location = new System.Drawing.Point(660, 164);
+            this.DisplayCallXML.Name = "DisplayCallXML";
+            this.DisplayCallXML.Size = new System.Drawing.Size(81, 32);
+            this.DisplayCallXML.TabIndex = 10;
+            this.DisplayCallXML.Text = "Display";
+            this.DisplayCallXML.UseVisualStyleBackColor = true;
+            this.DisplayCallXML.Click += new System.EventHandler(this.DisplayCallXML_Click);
+            // 
+            // ResultsDisplay
+            // 
+            this.ResultsDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
+            this.ResultsDisplay.Location = new System.Drawing.Point(12, 382);
+            this.ResultsDisplay.Name = "ResultsDisplay";
+            this.ResultsDisplay.Size = new System.Drawing.Size(1158, 284);
+            this.ResultsDisplay.TabIndex = 11;
+            this.ResultsDisplay.Text = "";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(800, 450);
-            this.Controls.Add(this.DisplayDataBttn);
-            this.Controls.Add(this.ClearBttn);
-            this.Controls.Add(this.XmlFileDrop2);
+            this.ClientSize = new System.Drawing.Size(1182, 678);
+            this.Controls.Add(this.ResultsDisplay);
+            this.Controls.Add(this.DisplayCallXML);
+            this.Controls.Add(this.DisplayBotConfig);
+            this.Controls.Add(this.ResultImage);
+            this.Controls.Add(this.ValidateBttn);
+            this.Controls.Add(this.CallXMLFileSearch);
+            this.Controls.Add(this.BotConfigFileSearch);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
-            this.Controls.Add(this.RecordingFilterButton);
-            this.Controls.Add(this.OnlineMeetingButton);
-            this.Controls.Add(this.JsonSubmit);
-            this.Controls.Add(this.JsonTextBox);
-            this.Controls.Add(this.XmlFileDrop);
-            this.Controls.Add(this.XmlLabel);
-            this.Controls.Add(this.JsonLabel);
+            this.Controls.Add(this.CallDataFileBox);
+            this.Controls.Add(this.BotConfigFileBox);
             this.Name = "Form1";
             this.Text = "Form1";
+            ((System.ComponentModel.ISupportInitialize)(this.ResultImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -177,17 +172,17 @@
 
         #endregion
 
-        private System.Windows.Forms.Label JsonLabel;
-        private System.Windows.Forms.Label XmlLabel;
-        private System.Windows.Forms.TextBox XmlFileDrop;
-        private System.Windows.Forms.TextBox JsonTextBox;
-        private System.Windows.Forms.Button JsonSubmit;
-        private System.Windows.Forms.Button OnlineMeetingButton;
-        private System.Windows.Forms.Button RecordingFilterButton;
+        private System.Windows.Forms.TextBox BotConfigFileBox;
+        private System.Windows.Forms.TextBox CallDataFileBox;
         private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.TextBox XmlFileDrop2;
-        private System.Windows.Forms.Button ClearBttn;
-        private System.Windows.Forms.Button DisplayDataBttn;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.Button BotConfigFileSearch;
+        private System.Windows.Forms.Button CallXMLFileSearch;
+        private System.Windows.Forms.Button ValidateBttn;
+        private System.Windows.Forms.PictureBox ResultImage;
+        private System.Windows.Forms.Button DisplayBotConfig;
+        private System.Windows.Forms.Button DisplayCallXML;
+        private System.Windows.Forms.RichTextBox ResultsDisplay;
     }
 }
 

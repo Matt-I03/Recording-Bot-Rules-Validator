@@ -22,7 +22,7 @@ namespace DeserializeV2
         {
             string final = $"Operator: {Operator} | Left Param: {LeftSideParameter} | " +
                            $"Left Value: {(String.IsNullOrEmpty(LeftSideValue) ? "N/A" : LeftSideValue)} | " +
-                           $"Logical Operator: {LogicalOperator} | Right Param: {RightSideParameter}\n";
+                           $"Logical Operator: {LogicalOperator} | Right Value: {RightSideParameter}\n";
 
             return final;
         }
@@ -30,8 +30,8 @@ namespace DeserializeV2
         public void UpdateCondition(Data data) // Resets flag and gets value for LeftSideValue
         {
             this.Flag = false;
-            this.LeftSideValue = data.ConfigSettings.ContainsKey(this.LeftSideParameter)
-                                 ? data.ConfigSettings[this.LeftSideParameter]
+            this.LeftSideValue = data.CallDetails.ContainsKey(this.LeftSideParameter)
+                                 ? data.CallDetails[this.LeftSideParameter]
                                  : string.Empty;
         }
 
@@ -62,9 +62,11 @@ namespace DeserializeV2
                     if (!EvaluateCondition(condition))
                     {
                         condition.Flag = true;
-                        if (boolOperator == "and") bDecision = false;
+                        if (boolOperator == "and") 
+                            bDecision = false;
                     }
-                    else if (boolOperator == "or") bDecision = true;
+                    else if (boolOperator == "or") 
+                        bDecision = true;
                 }
             }
 
@@ -84,12 +86,14 @@ namespace DeserializeV2
                 {
                     if (condition.LeftSideValue.Contains(condition.RightSideParameter))
                     {
-                        if (boolOperator == "or") bDecision = true;
+                        if (boolOperator == "or") 
+                            bDecision = true;
                     }
                     else
                     {
                         condition.Flag = true;
-                        if (boolOperator == "and") bDecision = false;
+                        if (boolOperator == "and") 
+                            bDecision = false;
                     }
                 }
             }
@@ -103,7 +107,7 @@ namespace DeserializeV2
 
             foreach (var condition in conditions)
             {
-                if (condition.Operator.ToLower() != boolOperator || string.IsNullOrEmpty(condition.LeftSideValue))
+                if (condition.Operator.ToLower() != boolOperator)
                     continue;
 
                 if (condition.LogicalOperator == "Excludes")
@@ -111,9 +115,11 @@ namespace DeserializeV2
                     if (condition.LeftSideValue.Contains(condition.RightSideParameter))
                     {
                         condition.Flag = true;
-                        if (boolOperator == "and") bDecision = false;
+                        if (boolOperator == "and") 
+                            bDecision = false;
                     }
-                    else if (boolOperator == "or") bDecision = true;
+                    else if (boolOperator == "or") 
+                        bDecision = true;
                 }
             }
 
@@ -124,7 +130,7 @@ namespace DeserializeV2
         {
             foreach (var condition in conditions)
             {
-                if (condition.Operator.ToLower() != boolOperator)
+                if (condition.Operator.ToLower() != boolOperator || string.IsNullOrEmpty(condition.LeftSideValue))
                     continue;
 
                 bool isFailingCondition = false;
@@ -170,7 +176,7 @@ namespace DeserializeV2
             FlagFailingConditions(data.RecordingConditions, "and");
             FlagFailingConditions(data.RecordingConditions, "or");
 
-            if (data.RecordingConditions.Any(m => m.Operator.ToLower() == "and"))
+            if (data.RecordingConditions.Any(m => m.Operator.ToLower() == "and" && String.IsNullOrEmpty(m.LeftSideValue) == false)) 
             {
                 if (!SelectRecordingFiltersCompare(data.RecordingConditions.Where(m => m.LogicalOperator == "eq"), "eq", "and"))
                     return false;
@@ -182,7 +188,7 @@ namespace DeserializeV2
                     return false;
             }
 
-            if (data.RecordingConditions.Any(m => m.Operator.ToLower() == "or"))
+            if (data.RecordingConditions.Any(m => m.Operator.ToLower() == "or" && String.IsNullOrEmpty(m.LeftSideValue) == false))
             {
                 if (SelectRecordingFiltersCompare(data.RecordingConditions.Where(m => m.LogicalOperator == "eq"), "eq", "or"))
                     return true;
@@ -204,8 +210,8 @@ namespace DeserializeV2
                 return false;
 
             // Call to get IsMeeting in bool
-            var strIsMeeting = data.ConfigSettings.ContainsKey("IsMeeting")
-                ? data.ConfigSettings["IsMeeting"]
+            var strIsMeeting = data.CallDetails.ContainsKey("IsMeeting")
+                ? data.CallDetails["IsMeeting"]
                 : string.Empty;
                 bool.TryParse(strIsMeeting, out var bIsMeeting);
 
@@ -225,7 +231,7 @@ namespace DeserializeV2
                 FlagFailingConditions(data.OnlineMeetingConditions, "and");
                 FlagFailingConditions(data.OnlineMeetingConditions, "or");
 
-                if (data.OnlineMeetingConditions.Any(m => m.Operator.ToLower() == "and"))
+                if (data.OnlineMeetingConditions.Any(m => m.Operator.ToLower() == "and" && String.IsNullOrEmpty(m.LeftSideValue) == false))
                 {
                     if (!SelectRecordingFiltersCompare(data.OnlineMeetingConditions.Where(m => m.LogicalOperator == "eq"), "eq", "and"))
                         return false;
@@ -237,7 +243,7 @@ namespace DeserializeV2
                         return false;
                 }
 
-                if (data.OnlineMeetingConditions.Any(m => m.Operator.ToLower() == "or"))
+                if (data.OnlineMeetingConditions.Any(m => m.Operator.ToLower() == "or" && String.IsNullOrEmpty(m.LeftSideValue) == false))
                 {
                     if (SelectRecordingFiltersCompare(data.OnlineMeetingConditions.Where(m => m.LogicalOperator == "eq"), "eq", "or"))
                         return true;
@@ -259,30 +265,30 @@ namespace DeserializeV2
             bool bIncoming = true, bOutgoing = true, bExternal = true, bInternal = true, bPSTN = true, bIsMeeting = false, bIsACDQueueSource = false,
                 bSelectIncomingCall = true, bSelectOutgoingCall = true, bSelectInternalCall = true, bSelectExternalCall = true, bSelectOnlineMeetingOnly = false, bSelectPSTNCallOnly = false;
             // Bunch of calls to get strings into bools
-            var strExternal = data.ConfigSettings.ContainsKey("External")
-                     ? data.ConfigSettings["External"]
+            var strExternal = data.CallDetails.ContainsKey("External")
+                     ? data.CallDetails["External"]
                      : string.Empty;
             bool.TryParse(strExternal, out bExternal);
             bInternal = !bExternal;
 
-            var strCallDirection = data.ConfigSettings.ContainsKey("CallDirection")
-                     ? data.ConfigSettings["CallDirection"]
+            var strCallDirection = data.CallDetails.ContainsKey("CallDirection")
+                     ? data.CallDetails["CallDirection"]
                      : string.Empty;
             bIncoming = strCallDirection == "I";
             bOutgoing = strCallDirection == "O";
 
-            var strPSTN = data.ConfigSettings.ContainsKey("PSTN")
-                     ? data.ConfigSettings["PSTN"]
+            var strPSTN = data.CallDetails.ContainsKey("PSTN")
+                     ? data.CallDetails["PSTN"]
                      : string.Empty;
             bool.TryParse(strPSTN, out bPSTN);
 
-            var strIsMeeting = data.ConfigSettings.ContainsKey("IsMeeting")
-                     ? data.ConfigSettings["IsMeeting"]
+            var strIsMeeting = data.CallDetails.ContainsKey("IsMeeting")
+                     ? data.CallDetails ["IsMeeting"]
                      : string.Empty;
             bool.TryParse(strIsMeeting, out bIsMeeting);
 
-            var strIsACDQueueSource = data.ConfigSettings.ContainsKey("IsACDQueueSource")
-                     ? data.ConfigSettings["IsACDQueueSource"]
+            var strIsACDQueueSource = data.CallDetails.ContainsKey("IsACDQueueSource")
+                     ? data.CallDetails["IsACDQueueSource"]
                      : string.Empty;
             bool.TryParse(strIsACDQueueSource, out bIsACDQueueSource);
 
@@ -309,17 +315,16 @@ namespace DeserializeV2
                     : string.Empty;
             bool.TryParse(strSelectExternal, out bSelectExternalCall);
 
+            var strSelectPSTNOnly = data.ConfigSettings.ContainsKey("PstnCallOnly")
+                    ? data.ConfigSettings["PstnCallOnly"]
+        :           string.Empty;
+            bool.TryParse(strSelectPSTNOnly, out bSelectPSTNCallOnly);
+
 
             var strSelectOnlineMeeting = data.ConfigSettings.ContainsKey("OnlineMeetingOnly")
                     ? data.ConfigSettings["OnlineMeetingOnly"]
                     : string.Empty;
             bool.TryParse(strSelectOnlineMeeting, out bSelectOnlineMeetingOnly);
-
-
-            var strSelectPSTNOnly = data.ConfigSettings.ContainsKey("PstnCallOnly")
-                    ? data.ConfigSettings["PstnCallOnly"]
-                    : string.Empty;
-            bool.TryParse(strSelectPSTNOnly, out bSelectPSTNCallOnly);
 
             if (!bSelectIncomingCall && !bIsMeeting && !bIsACDQueueSource)
                 if (bIncoming)
