@@ -45,24 +45,24 @@
             // 
             // BotConfigFileBox
             // 
-            this.BotConfigFileBox.Location = new System.Drawing.Point(46, 68);
+            this.BotConfigFileBox.Location = new System.Drawing.Point(36, 54);
             this.BotConfigFileBox.Multiline = true;
             this.BotConfigFileBox.Name = "BotConfigFileBox";
-            this.BotConfigFileBox.Size = new System.Drawing.Size(465, 33);
+            this.BotConfigFileBox.Size = new System.Drawing.Size(465, 32);
             this.BotConfigFileBox.TabIndex = 0;
             // 
             // CallDataFileBox
             // 
-            this.CallDataFileBox.Location = new System.Drawing.Point(46, 163);
+            this.CallDataFileBox.Location = new System.Drawing.Point(36, 149);
             this.CallDataFileBox.Multiline = true;
             this.CallDataFileBox.Name = "CallDataFileBox";
-            this.CallDataFileBox.Size = new System.Drawing.Size(465, 33);
+            this.CallDataFileBox.Size = new System.Drawing.Size(465, 32);
             this.CallDataFileBox.TabIndex = 1;
             // 
             // label1
             // 
             this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(46, 49);
+            this.label1.Location = new System.Drawing.Point(33, 38);
             this.label1.Name = "label1";
             this.label1.Size = new System.Drawing.Size(133, 13);
             this.label1.TabIndex = 2;
@@ -71,7 +71,7 @@
             // label2
             // 
             this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(46, 147);
+            this.label2.Location = new System.Drawing.Point(33, 133);
             this.label2.Name = "label2";
             this.label2.Size = new System.Drawing.Size(68, 13);
             this.label2.TabIndex = 3;
@@ -80,7 +80,7 @@
             // BotConfigFileSearch
             // 
             this.BotConfigFileSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.BotConfigFileSearch.Location = new System.Drawing.Point(547, 68);
+            this.BotConfigFileSearch.Location = new System.Drawing.Point(523, 54);
             this.BotConfigFileSearch.Name = "BotConfigFileSearch";
             this.BotConfigFileSearch.Size = new System.Drawing.Size(83, 32);
             this.BotConfigFileSearch.TabIndex = 4;
@@ -91,9 +91,9 @@
             // CallXMLFileSearch
             // 
             this.CallXMLFileSearch.Font = new System.Drawing.Font("Microsoft Sans Serif", 15F);
-            this.CallXMLFileSearch.Location = new System.Drawing.Point(547, 163);
+            this.CallXMLFileSearch.Location = new System.Drawing.Point(523, 149);
             this.CallXMLFileSearch.Name = "CallXMLFileSearch";
-            this.CallXMLFileSearch.Size = new System.Drawing.Size(83, 33);
+            this.CallXMLFileSearch.Size = new System.Drawing.Size(83, 32);
             this.CallXMLFileSearch.TabIndex = 5;
             this.CallXMLFileSearch.Text = ". . .";
             this.CallXMLFileSearch.UseVisualStyleBackColor = true;
@@ -101,7 +101,7 @@
             // 
             // ValidateBttn
             // 
-            this.ValidateBttn.Location = new System.Drawing.Point(433, 297);
+            this.ValidateBttn.Location = new System.Drawing.Point(105, 252);
             this.ValidateBttn.Name = "ValidateBttn";
             this.ValidateBttn.Size = new System.Drawing.Size(308, 76);
             this.ValidateBttn.TabIndex = 6;
@@ -111,47 +111,47 @@
             // 
             // ResultImage
             // 
-            this.ResultImage.Location = new System.Drawing.Point(900, 68);
+            this.ResultImage.Location = new System.Drawing.Point(440, 252);
             this.ResultImage.Name = "ResultImage";
-            this.ResultImage.Size = new System.Drawing.Size(217, 197);
+            this.ResultImage.Size = new System.Drawing.Size(88, 76);
             this.ResultImage.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.ResultImage.TabIndex = 7;
             this.ResultImage.TabStop = false;
             // 
             // DisplayBotConfig
             // 
-            this.DisplayBotConfig.Location = new System.Drawing.Point(660, 68);
+            this.DisplayBotConfig.Location = new System.Drawing.Point(625, 54);
             this.DisplayBotConfig.Name = "DisplayBotConfig";
             this.DisplayBotConfig.Size = new System.Drawing.Size(81, 32);
             this.DisplayBotConfig.TabIndex = 9;
-            this.DisplayBotConfig.Text = "Display";
+            this.DisplayBotConfig.Text = "View";
             this.DisplayBotConfig.UseVisualStyleBackColor = true;
             this.DisplayBotConfig.Click += new System.EventHandler(this.DisplayBotConfig_Click);
             // 
             // DisplayCallXML
             // 
-            this.DisplayCallXML.Location = new System.Drawing.Point(660, 164);
+            this.DisplayCallXML.Location = new System.Drawing.Point(625, 149);
             this.DisplayCallXML.Name = "DisplayCallXML";
             this.DisplayCallXML.Size = new System.Drawing.Size(81, 32);
             this.DisplayCallXML.TabIndex = 10;
-            this.DisplayCallXML.Text = "Display";
+            this.DisplayCallXML.Text = "View";
             this.DisplayCallXML.UseVisualStyleBackColor = true;
             this.DisplayCallXML.Click += new System.EventHandler(this.DisplayCallXML_Click);
             // 
             // ResultsDisplay
             // 
             this.ResultsDisplay.Font = new System.Drawing.Font("Microsoft Sans Serif", 10F);
-            this.ResultsDisplay.Location = new System.Drawing.Point(12, 382);
+            this.ResultsDisplay.Location = new System.Drawing.Point(12, 379);
             this.ResultsDisplay.Name = "ResultsDisplay";
-            this.ResultsDisplay.Size = new System.Drawing.Size(1158, 284);
+            this.ResultsDisplay.Size = new System.Drawing.Size(795, 223);
             this.ResultsDisplay.TabIndex = 11;
             this.ResultsDisplay.Text = "";
             // 
             // ClearBttn
             // 
-            this.ClearBttn.Location = new System.Drawing.Point(900, 297);
+            this.ClearBttn.Location = new System.Drawing.Point(726, 342);
             this.ClearBttn.Name = "ClearBttn";
-            this.ClearBttn.Size = new System.Drawing.Size(217, 76);
+            this.ClearBttn.Size = new System.Drawing.Size(81, 31);
             this.ClearBttn.TabIndex = 12;
             this.ClearBttn.Text = "Clear";
             this.ClearBttn.UseVisualStyleBackColor = true;
@@ -161,7 +161,9 @@
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1182, 678);
+            this.AutoSize = true;
+            this.AutoSizeMode = System.Windows.Forms.AutoSizeMode.GrowAndShrink;
+            this.ClientSize = new System.Drawing.Size(819, 614);
             this.Controls.Add(this.ClearBttn);
             this.Controls.Add(this.ResultsDisplay);
             this.Controls.Add(this.DisplayCallXML);
@@ -175,7 +177,7 @@
             this.Controls.Add(this.CallDataFileBox);
             this.Controls.Add(this.BotConfigFileBox);
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Recorder Bot Rules Validator";
             ((System.ComponentModel.ISupportInitialize)(this.ResultImage)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();

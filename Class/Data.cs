@@ -181,7 +181,7 @@ namespace DeserializeV2
         {
             Form form = new Form();
             form.Text = name;
-            form.Size = new System.Drawing.Size(800, 700);
+            form.Size = new System.Drawing.Size(500, 400);
             form.StartPosition = FormStartPosition.CenterParent;
 
             RichTextBox richTextBox = new RichTextBox();

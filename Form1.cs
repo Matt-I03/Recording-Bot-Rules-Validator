@@ -138,28 +138,32 @@ namespace DeserializeV2
                 AppendTextWithFormatting("Recording Filters:", true);
                 AppendTextWithFormatting(" Passed\n");
 
-                AppendTextWithFormatting("\nFailed Meeting Filters:\n", true);
+                AppendTextWithFormatting("\nMeeting Filters:", true);
+                AppendTextWithFormatting(" Failed\n");
                 AppendTextWithFormatting(data.FailedConditionsToString("OnlineMeetingFilters").ToString(), color: Color.Red);
 
                 ResultImage.Image = Properties.Resources.X_Mark;
             }
             else if (meetingRes)
             {
-                AppendTextWithFormatting("Failed Recording Filters:\n", true);
+                AppendTextWithFormatting("Recording Filters:", true);
+                AppendTextWithFormatting(" Failed\n");
                 AppendTextWithFormatting(data.FailedConditionsToString("RecordingFilters").ToString(), color: Color.Red);
 
-                AppendTextWithFormatting("\nOnline Meeting Filters:", true);
-                AppendTextWithFormatting(" Passed");
+                AppendTextWithFormatting("\nMeeting Filters:", true);
+                AppendTextWithFormatting(" Passed\n");
 
                 ResultImage.Image = Properties.Resources.X_Mark;
 
             }
             else
             {
-                AppendTextWithFormatting("Failed Recording Filters:\n", true);
+                AppendTextWithFormatting("Recording Filters:", true);
+                AppendTextWithFormatting(" Failed\n");
                 AppendTextWithFormatting(data.FailedConditionsToString("RecordingFilters").ToString(), color: Color.Red);
 
-                AppendTextWithFormatting("\nFailed Meeting Filters:\n", true);
+                AppendTextWithFormatting("\nMeeting Filters:", true);
+                AppendTextWithFormatting(" Failed\n"); 
                 AppendTextWithFormatting(data.FailedConditionsToString("OnlineMeetingFilters").ToString(), color: Color.Red);
 
                 ResultImage.Image = Properties.Resources.X_Mark;
