@@ -39,6 +39,7 @@
             this.DisplayBotConfig = new System.Windows.Forms.Button();
             this.DisplayCallXML = new System.Windows.Forms.Button();
             this.ResultsDisplay = new System.Windows.Forms.RichTextBox();
+            this.ClearBttn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.ResultImage)).BeginInit();
             this.SuspendLayout();
             // 
@@ -146,11 +147,22 @@
             this.ResultsDisplay.TabIndex = 11;
             this.ResultsDisplay.Text = "";
             // 
+            // ClearBttn
+            // 
+            this.ClearBttn.Location = new System.Drawing.Point(900, 297);
+            this.ClearBttn.Name = "ClearBttn";
+            this.ClearBttn.Size = new System.Drawing.Size(217, 76);
+            this.ClearBttn.TabIndex = 12;
+            this.ClearBttn.Text = "Clear";
+            this.ClearBttn.UseVisualStyleBackColor = true;
+            this.ClearBttn.Click += new System.EventHandler(this.ClearBttn_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1182, 678);
+            this.Controls.Add(this.ClearBttn);
             this.Controls.Add(this.ResultsDisplay);
             this.Controls.Add(this.DisplayCallXML);
             this.Controls.Add(this.DisplayBotConfig);
@@ -183,6 +195,7 @@
         private System.Windows.Forms.Button DisplayBotConfig;
         private System.Windows.Forms.Button DisplayCallXML;
         private System.Windows.Forms.RichTextBox ResultsDisplay;
+        private System.Windows.Forms.Button ClearBttn;
     }
 }
 

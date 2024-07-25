@@ -143,10 +143,7 @@
     <None Include="Resources\Red_X.svg.png" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Check_Mark.png" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Resources\360_F_755593909_EtHKIgsv6c9KrBMZ6zxPfYU9krAwgxiZ.jpg" />
+    <None Include="Resources\checkmark-png-5.png" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

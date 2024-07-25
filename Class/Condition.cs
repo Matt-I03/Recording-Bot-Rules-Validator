@@ -20,9 +20,7 @@ namespace DeserializeV2
 
         public override string ToString()
         {
-            string final = $"Operator: {Operator} | Left Param: {LeftSideParameter} | " +
-                           $"Left Value: {(String.IsNullOrEmpty(LeftSideValue) ? "N/A" : LeftSideValue)} | " +
-                           $"Logical Operator: {LogicalOperator} | Right Value: {RightSideParameter}\n";
+            string final = $"{LeftSideParameter} {LogicalOperator} {RightSideParameter}, {{{Operator}}}";
 
             return final;
         }
@@ -262,6 +260,9 @@ namespace DeserializeV2
  
         private static bool BasicRecordingFiltersCheck(Data data)
         {
+            if (data.ConfigSettings.Count == 0 || (data.OnlineMeetingConditions.Count == 0 && data.RecordingConditions.Count == 0) || data.CallDetails.Count == 0)
+                return true;
+
             bool bIncoming = true, bOutgoing = true, bExternal = true, bInternal = true, bPSTN = true, bIsMeeting = false, bIsACDQueueSource = false,
                 bSelectIncomingCall = true, bSelectOutgoingCall = true, bSelectInternalCall = true, bSelectExternalCall = true, bSelectOnlineMeetingOnly = false, bSelectPSTNCallOnly = false;
             // Bunch of calls to get strings into bools

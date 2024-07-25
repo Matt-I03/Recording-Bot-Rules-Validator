@@ -132,6 +132,15 @@ namespace DeserializeV2
             ShowScrollableMessageBox(message.ToString(), "Config Settings");
         }
 
+        public void Clear()
+        {
+            this.ConfigSettings.Clear();
+            this.RecordingConditions.Clear();
+            this.OnlineMeetingConditions.Clear();
+            this.CallDetails.Clear();
+            this.Participants.Clear();
+        }
+
         public void DisplayCallDetails()
         {
             StringBuilder message = new StringBuilder();
@@ -172,7 +181,7 @@ namespace DeserializeV2
         {
             Form form = new Form();
             form.Text = name;
-            form.Size = new System.Drawing.Size(400, 300);
+            form.Size = new System.Drawing.Size(800, 700);
             form.StartPosition = FormStartPosition.CenterParent;
 
             RichTextBox richTextBox = new RichTextBox();

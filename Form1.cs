@@ -67,7 +67,7 @@ namespace DeserializeV2
 
             using (OpenFileDialog openFileDialog = new OpenFileDialog())
             {
-                openFileDialog.Filter = "All files (*.*)|*.*|XML files (*.xml)|*.xml";
+                openFileDialog.Filter = "XML files (*.xml)|*.xml";
                 openFileDialog.FilterIndex = 1;
                 openFileDialog.RestoreDirectory = true;
 
@@ -110,42 +110,72 @@ namespace DeserializeV2
             bool recordRes = Condition.ShouldRecord(data);
             bool meetingRes = Condition.ShouldRecordOnlineMeeting(data);
 
+            DisplayRes(recordRes, meetingRes);
+        }
+
+        private void ClearBttn_Click(object sender, EventArgs e)
+        {
+            data.Clear();
+            ResultsDisplay.Clear();
+            ResultImage.Image = null;
+            BotConfigFileBox.Clear();
+            CallDataFileBox.Clear();
+        }
+
+        public void DisplayRes(bool recordRes, bool meetingRes)
+        {
             if (recordRes && meetingRes)
             {
-                ResultsDisplay.AppendText("Recording Filters: Passed" + Environment.NewLine);
-                ResultsDisplay.AppendText(Environment.NewLine + "Online Meeting Filters: Passed");
+                AppendTextWithFormatting("Recording Filters:", true);
+                AppendTextWithFormatting(" Passed\n");
+                AppendTextWithFormatting("\nOnline Meeting Filters:", true);
+                AppendTextWithFormatting(" Passed");
 
                 ResultImage.Image = Properties.Resources.Check_Mark;
             }
             else if (recordRes)
             {
-                ResultsDisplay.AppendText("Recording Filters: Passed" + Environment.NewLine);
+                AppendTextWithFormatting("Recording Filters:", true);
+                AppendTextWithFormatting(" Passed\n");
 
-                ResultsDisplay.AppendText(Environment.NewLine + "Failed Meeting Filters: " + Environment.NewLine);
-                ResultsDisplay.AppendText(data.FailedConditionsToString("OnlineMeetingFilters").ToString());
+                AppendTextWithFormatting("\nFailed Meeting Filters:\n", true);
+                AppendTextWithFormatting(data.FailedConditionsToString("OnlineMeetingFilters").ToString(), color: Color.Red);
 
                 ResultImage.Image = Properties.Resources.X_Mark;
             }
             else if (meetingRes)
             {
-                ResultsDisplay.AppendText("Failed Recording Filters: " + Environment.NewLine);
-                ResultsDisplay.AppendText(data.FailedConditionsToString("RecordingFilters").ToString());
+                AppendTextWithFormatting("Failed Recording Filters:\n", true);
+                AppendTextWithFormatting(data.FailedConditionsToString("RecordingFilters").ToString(), color: Color.Red);
 
-                ResultsDisplay.AppendText(Environment.NewLine + "Online Meeting Filters: Passed");
+                AppendTextWithFormatting("\nOnline Meeting Filters:", true);
+                AppendTextWithFormatting(" Passed");
 
                 ResultImage.Image = Properties.Resources.X_Mark;
 
             }
             else
             {
-                ResultsDisplay.AppendText("Failed Recording Filters: " + Environment.NewLine);
-                ResultsDisplay.AppendText(data.FailedConditionsToString("RecordingFilters").ToString());
+                AppendTextWithFormatting("Failed Recording Filters:\n", true);
+                AppendTextWithFormatting(data.FailedConditionsToString("RecordingFilters").ToString(), color: Color.Red);
 
-                ResultsDisplay.AppendText(Environment.NewLine + "Failed Meeting Filters: " + Environment.NewLine);
-                ResultsDisplay.AppendText(data.FailedConditionsToString("OnlineMeetingFilters").ToString());
+                AppendTextWithFormatting("\nFailed Meeting Filters:\n", true);
+                AppendTextWithFormatting(data.FailedConditionsToString("OnlineMeetingFilters").ToString(), color: Color.Red);
 
                 ResultImage.Image = Properties.Resources.X_Mark;
             }
+        }
+
+        // Appends text to display box with certain color/bolding with option to choose
+        public void AppendTextWithFormatting(string text, bool bold = false, Color? color = null)
+        {
+            int start = ResultsDisplay.TextLength;
+            ResultsDisplay.AppendText(text);
+            int end = ResultsDisplay.TextLength;
+            ResultsDisplay.Select(start, end - start);
+            ResultsDisplay.SelectionFont = new Font(ResultsDisplay.Font, bold ? FontStyle.Bold : FontStyle.Regular);
+            ResultsDisplay.SelectionColor = color ?? Color.Black;
+            ResultsDisplay.SelectionLength = 0;
         }
     }
 }
