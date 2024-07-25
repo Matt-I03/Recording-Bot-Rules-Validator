@@ -7,7 +7,7 @@ using System.Text.RegularExpressions;
 using System.Threading.Tasks;
 using System.Windows.Forms.VisualStyles;
 
-namespace DeserializeV2
+namespace Validator
 {
     internal class Condition
     {

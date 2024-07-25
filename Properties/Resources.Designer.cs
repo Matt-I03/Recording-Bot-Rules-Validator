@@ -8,7 +8,7 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace DeserializeV2.Properties {
+namespace Validator.Properties {
     using System;
     
     

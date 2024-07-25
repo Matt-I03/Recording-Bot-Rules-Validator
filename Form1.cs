@@ -13,7 +13,7 @@ using System.Xml.Linq;
 using System.Xml.Serialization;
 using System.Windows.Forms.VisualStyles;
 
-namespace DeserializeV2
+namespace Validator
 {
     public partial class Form1 : Form
     {

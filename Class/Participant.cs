@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace DeserializeV2
+namespace Validator
 {
     internal class Participant
     {

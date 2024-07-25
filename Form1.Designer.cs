@@ -1,4 +1,4 @@
-﻿namespace DeserializeV2
+﻿namespace Validator
 {
     partial class Form1
     {
