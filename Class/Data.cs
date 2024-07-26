@@ -1,6 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Globalization;
+using System.Globalization; 
 using System.IO;
 using System.Linq;
 using System.Runtime.CompilerServices;
@@ -24,7 +24,7 @@ namespace Validator
         public void DeserializeJsonConfig(string filePath) //Deserializes Json file containing bot config
         {
             string fileContents = File.ReadAllText(filePath);
-            var jsonDoc = JsonDocument.Parse(fileContents);
+            JsonDocument jsonDoc = JsonDocument.Parse(fileContents);
 
             foreach (var element in jsonDoc.RootElement.EnumerateObject())
             {
@@ -60,9 +60,9 @@ namespace Validator
                     if (element.Name.LocalName == "Value")
                     {
                         if (element.Parent.Parent.Parent.Name.LocalName == "SelectRecordingFilters") // The third parent is the category we need to check to sort conditions
-                            this.RecordingConditions.Add(Condition.TokenizeRecordingFilters(this, element.Parent.ToString()));
+                            this.RecordingConditions.Add(Condition.TokenizeFilters(this, element.Parent.ToString(), "RecordingFilters"));
                         else if (element.Parent.Parent.Parent.Name.LocalName == "OnlineMeetingOptions")
-                            this.OnlineMeetingConditions.Add(Condition.TokenizeOnlineMeetingFilters(this, element.Parent.ToString()));
+                            this.OnlineMeetingConditions.Add(Condition.TokenizeFilters(this, element.Parent.ToString(), "MeetingFilters"));
                     }
                     else if (element.Parent.Name.LocalName == "SelectRecordingFilters" && element.Parent.Name.LocalName != "Filters")
                         this.ConfigSettings[element.Name.LocalName] = element.Value;

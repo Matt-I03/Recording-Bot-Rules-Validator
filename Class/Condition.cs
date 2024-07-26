@@ -355,32 +355,15 @@ namespace Validator
         }
 
         // 2 functions below convert recording filters/online meeting filters strings into condition class
-        public static Condition TokenizeRecordingFilters(Data data, string filterString)
+        public static Condition TokenizeFilters(Data data, string filterString, string choice)
         {
             Condition condition = new Condition();
+            string pattern = "";
 
-            string pattern = @"<Filter Operator=""(?<Operator>[^""]+)"">\s*<Value>\s*'{(?<Field>[^']+)}'\s*(?<ComparisonOperator>\b(?:eq|ne)\b)\s*'(?<Value>[^']+)'"; 
-
-            var match = Regex.Match(filterString, pattern);
-
-            if (match.Success)
-            {
-                condition.Operator = match.Groups["Operator"].Value.Trim();
-                condition.LeftSideParameter = match.Groups["Field"].Value.Trim();
-                condition.LogicalOperator = match.Groups["ComparisonOperator"].Value.Trim();
-                condition.RightSideParameter = match.Groups["Value"].Value.Trim();
-            }
-
-            condition.UpdateCondition(data);
-
-            return condition;
-        }
-
-        public static Condition TokenizeOnlineMeetingFilters(Data data, string filterString)
-        {
-            Condition condition = new Condition();
-
-            string pattern = @"<Filter Operator=""(?<Operator>[^""]+)"">\s*<Value>\s*'{(?<Field>[^']+)}'\s*(?<ComparisonOperator>\b(?:Contains|Excludes)\b)\s*\('(?<Value>[^)]+)'\)";
+            if (choice == "RecordingFilters")
+                pattern = @"<Filter Operator=""(?<Operator>[^""]+)"">\s*<Value>\s*'{(?<Field>[^']+)}'\s*(?<ComparisonOperator>\b(?:eq|ne)\b)\s*'(?<Value>[^']+)'";
+            else if (choice == "MeetingFilters")
+                pattern = @"<Filter Operator=""(?<Operator>[^""]+)"">\s*<Value>\s*'{(?<Field>[^']+)}'\s*(?<ComparisonOperator>\b(?:Contains|Excludes)\b)\s*\('(?<Value>[^)]+)'\)";
 
             var match = Regex.Match(filterString, pattern);
 
